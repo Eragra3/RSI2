@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9b632f05-2724-466f-b999-2c30449b20f3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:13371/AccountingService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="003e6569-d660-4427-96c3-d1438dd2973f" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?xsd=xsd0" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="ed9531a0-c5bb-431d-9efc-857b284372f0" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="5123a415-a2ab-4e0f-b541-84ae1842d022" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?xsd=xsd2" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="e4b3eae9-29b2-47ab-98fe-9999e8e80e57" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?xsd=xsd3" />
+    <MetadataFile FileName="AccountingService.wsdl" MetadataType="Wsdl" ID="89e304a7-baff-492b-819a-9a3a63b2d8df" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?wsdl" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="b022e9dc-913c-4040-b900-7a7f4dd59122" SourceId="1" SourceUrl="http://localhost:13371/AccountingService/?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -5,8 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="700" Width="1000">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Border BorderBrush="#FFA0A0A0"
+                        BorderThickness="0,0,1,0"></Border>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Name="AccountingPanel" Grid.Row="0" Orientation="Vertical">
+
+                    <Label FontSize="14" FontWeight="Bold">Operacje księgowe</Label>
+                    <Label>Wpisz zarobki</Label>
+                    <TextBox PreviewTextInput="UIElement_OnPreviewTextInput" TextWrapping="Wrap"
+                             MinLines="2"  MaxLines="4" Margin="0,0,0,1" Name="AccountingDataTextBox"
+                             TextChanged="SetDefaultBorderBrush" KeyDown="AccountingDataTextBox_OnKeyDown"></TextBox>
+                    <Button Content="Przetwórz dane" Height="30" Click="GetAccountingData"></Button>
+                    <Grid Name="AccountingDataPanel">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Odchylenie&#x0a;standardowe"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Name="StandardDeviationLabel"></Label>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Maksimum"></Label>
+                        <Label Grid.Row="1" Grid.Column="1" Name="MaximumLabel"></Label>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Średnia"></Label>
+                        <Label Grid.Row="2" Grid.Column="1" Name="AverageLabel"></Label>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Minimum"></Label>
+                        <Label Grid.Row="3" Grid.Column="1" Name="MinimumLabel"></Label>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Name="LibraryPanel" Grid.Row="1" Orientation="Vertical">
+                    <Separator></Separator>
+
+                    <Label  FontSize="14" FontWeight="Bold">Biblioteka</Label>
+
+                    <StackPanel Orientation="Vertical">
+
+                        <Label Content="Wpisz nazwę pozycji"></Label>
+                        <TextBox Margin="0,0,0,1"  Height="30"  Name="PublicationTitleTextBox"
+                                 TextChanged="SetDefaultBorderBrush" KeyDown="PublicationTitleTextBox_OnKeyDown"></TextBox>
+
+                        <Button Margin="0,0,0,1" Height="30" Click="PrintPublication">Pobierz publikację</Button>
+                        <Button Margin="0,0,0,1" Height="30" Click="PublicationExists">Zobacz czy publikacja istnieje</Button>
+                        <Button Margin="0,0,0,10" Height="30" Click="GetPublicationsList">Lista publikacji</Button>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0">Od</Label>
+                            <TextBox Grid.Column="1" Name="LowerBoundaryTextBox" PreviewTextInput="AcceptOnlyNumeric"/>
+                            <Label  Grid.Column="2">Do</Label>
+                            <TextBox  Grid.Column="3" Name="UpperBoundaryTextBox" TextChanged="SetDefaultBorderBrush"
+                                      PreviewTextInput="AcceptOnlyNumeric"></TextBox>
+                        </Grid>
+                        <Button Margin="0,1,0,1" Height="30" Click="GetLines">Daj linijki</Button>
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <TextBox Grid.Column="1" Name="MainConsole"></TextBox>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <CheckBox VerticalAlignment="Center" Checked="CheckBox_Checked" 
+                      Margin="10,0">Automatycznie czyść ekran</CheckBox>
+            <Button Width="120" Click="ClearConsole">Wyczyść ekran</Button>
+        </StackPanel>
     </Grid>
 </Window>

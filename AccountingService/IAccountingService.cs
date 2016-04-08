@@ -5,43 +5,38 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace AccountingService
+namespace Accounting
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IAccountingService" in both code and config file together.
     [ServiceContract]
     public interface IAccountingService
     {
         [OperationContract]
+        string Hello();
 
-        double GetStandardDeviation(IEnumerable<double> numbers);
+        [OperationContract]
+        AccountingResult GetStandardDeviation(List<double> numbers);
 
-        double GetMaximum(IEnumerable<double> numbers);
+        [OperationContract]
+        AccountingResult GetMaximum(List<double> numbers);
 
-        double GetMinimum(IEnumerable<double> numbers);
+        [OperationContract]
+        AccountingResult GetMinimum(List<double> numbers);
 
-        double GetAverage(IEnumerable<double> numbers);
+        [OperationContract]
+        AccountingResult GetAverage(List<double> numbers);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     // You can add XSD files into the project. After building the project, you can directly use the data types defined there, with the namespace "AccountingService.ContractType".
     [DataContract]
-    public class CompositeType
+    public class AccountingResult
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
+        public bool Success { get; set; }
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public double Result { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
     }
 }
