@@ -36,6 +36,7 @@ namespace LibraryHost
             {
                 Console.WriteLine($"Ooops, {e.Message}");
                 Console.ReadLine();
+                host.Abort();
             }
         }
     }

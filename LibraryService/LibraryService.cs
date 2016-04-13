@@ -26,7 +26,7 @@ namespace Library
             try
             {
                 var formattedFileName = FormatFileName(fileName);
-                using (var reader = new StreamReader(_mainDirectory + $"/{formattedFileName}.txt"))
+                using (var reader = new StreamReader(File.Open(_mainDirectory + $"/{formattedFileName}.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
                 {
                     var fileContent = reader.ReadToEnd();
 
@@ -48,7 +48,7 @@ namespace Library
             try
             {
                 var formattedFileName = FormatFileName(fileName);
-                using (var reader = new StreamReader(_mainDirectory + $"/{formattedFileName}.txt"))
+                using (var reader = new StreamReader(File.Open(_mainDirectory + $"/{formattedFileName}.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
                 {
                     //skip initial lines 
                     for (var i = 0; i < lowerBoundary; i++)
@@ -93,7 +93,7 @@ namespace Library
         {
             try
             {
-                var fileNames = Directory.GetFiles(_mainDirectory, "*.txt");
+                var fileNames = Directory.GetFiles(_mainDirectory, "*.txt", SearchOption.AllDirectories);
                 return fileNames
                     .Select(Path.GetFileNameWithoutExtension)
                     .Aggregate((name, acc) => acc + "\n" + name);
