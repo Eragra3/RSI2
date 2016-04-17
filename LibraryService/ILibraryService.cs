@@ -7,7 +7,6 @@ using System.Text;
 
 namespace Library
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "ILibraryService" in both code and config file together.
     [ServiceContract]
     public interface ILibraryService
     {
@@ -15,15 +14,27 @@ namespace Library
         string Hello();
 
         [OperationContract]
-        string GetFile(string fileName);
+        LibraryTransaction<string> GetFile(string fileName);
 
         [OperationContract]
-        string GetAllFileNames();
+        LibraryTransaction<List<string>> GetAllFileNames();
 
         [OperationContract]
-        string GetLines(string fileName, int lowerBoundary, int upperBoundary);
+        LibraryTransaction<string> GetLines(string fileName, int lowerBoundary, int upperBoundary);
 
         [OperationContract]
-        bool FileExists(string fileName);
+        LibraryTransaction<bool> FileExists(string fileName);
+
+    }
+
+    [DataContract]
+    public class LibraryTransaction<T>
+    {
+        [DataMember]
+        public bool Success { get; set; }
+        [DataMember]
+        public T Result { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
     }
 }

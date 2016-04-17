@@ -136,18 +136,26 @@ namespace Client
                 return null;
             }
 
-            var text = AccountingDataTextBox.Text;
-            var splittedText = text.Split(' ');
+            try
+            {
+                var text = AccountingDataTextBox.Text;
+                var splittedText = text.Split(' ');
 
-            var data = new List<double>(100);
+                var data = new List<double>(100);
 
-            data.AddRange(
-                from numberLiteral in splittedText
-                where numberLiteral != string.Empty
-                select double.Parse(numberLiteral));
+                data.AddRange(
+                    from numberLiteral in splittedText
+                    where numberLiteral != string.Empty
+                    select double.Parse(numberLiteral));
 
-            data.Reverse();
-            return data;
+                data.Reverse();
+                return data;
+            }
+            catch (Exception e)
+            {
+                AccountingDataTextBox.BorderBrush = Brushes.Red;
+                return null;
+            }
         }
 
         private void Print(string text)
@@ -212,8 +220,6 @@ namespace Client
 
         private void GetPublicationsList(object sender, RoutedEventArgs e)
         {
-            var publicationTitle = ReadPublicationTitle();
-
             var task = _libraryService.GetAllFileNamesAsync();
 
             task.ContinueWith(taskResult =>

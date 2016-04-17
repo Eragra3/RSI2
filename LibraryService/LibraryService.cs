@@ -21,27 +21,39 @@ namespace Library
             return "Hi!";
         }
 
-        public string GetFile(string fileName)
+        public LibraryTransaction<string> GetFile(string fileName)
         {
+            Console.WriteLine($"Klient próbuje pobrać plik o nazwie ${fileName}");
             try
             {
                 var formattedFileName = FormatFileName(fileName);
-                using (var reader = new StreamReader(File.Open(_mainDirectory + $"/{formattedFileName}.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
+                using (
+                    var reader =
+                        new StreamReader(File.Open(_mainDirectory + $"/{formattedFileName}.txt", FileMode.Open,
+                            FileAccess.Read, FileShare.Read)))
                 {
                     var fileContent = reader.ReadToEnd();
 
-                    return fileContent;
+                    return new LibraryTransaction<string>
+                    {
+                        Result = fileContent,
+                        Success = true
+                    };
                 }
             }
             catch (Exception e)
             {
-                return $"Nie znaleziono pliku - {fileName}";
+                return new LibraryTransaction<string>
+                {
+                    Success = false,
+                    ErrorMessage = $"Nie znaleziono pliku - {fileName}"
+                };
             }
-
         }
 
-        public string GetLines(string fileName, int lowerBoundary, int upperBoundary)
+        public LibraryTransaction<string> GetLines(string fileName, int lowerBoundary, int upperBoundary)
         {
+            Console.WriteLine($"Klient próbuje pobrać linijki od  ${lowerBoundary} do ${upperBoundary} z pliku ${fileName}");
             if (lowerBoundary < 1 || upperBoundary < 0 || (upperBoundary != 0 && lowerBoundary > upperBoundary)) return string.Empty;
 
             var fileContent = string.Empty;
@@ -67,36 +79,61 @@ namespace Library
                             fileContent += reader.ReadLine() + '\n';
                         }
                     }
-                    return fileContent;
+
+                    return new LibraryTransaction<string>
+                    {
+                        Result = fileContent,
+                        Success = true
+                    };
                 }
             }
             catch (Exception e)
             {
-                return string.IsNullOrEmpty(fileContent) ? fileContent : $"Nie znaleziono pliku - {fileName}";
+                return new LibraryTransaction<string>
+                {
+                    Result = fileContent,
+                    Success = true,
+                    ErrorMessage = $"Nie znaleziono pliku - {fileName}"
+                };
             }
         }
 
-        public bool FileExists(string fileName)
+        public LibraryTransaction<bool> FileExists(string fileName)
         {
+            Console.WriteLine($"Klient sprawdza czy plik ${fileName} istnieje");
             try
             {
                 var formattedFileName = FormatFileName(fileName);
-                return File.Exists(_mainDirectory + $"/{formattedFileName}.txt");
+                return new LibraryTransaction<bool>
+                {
+                    Result = File.Exists(_mainDirectory + $"/{formattedFileName}.txt"),
+                    Success = true
+                };
             }
             catch (Exception)
             {
-                return false;
+                return new LibraryTransaction<bool>
+                {
+                    Success = false,
+                    ErrorMessage = $"Nie znaleziono pliku - {fileName}"
+                };
             }
         }
 
-        public string GetAllFileNames()
+        public LibraryTransaction<List<string>> GetAllFileNames()
         {
+            Console.WriteLine($"Klient pobiera nazwy wszystkich plików");
             try
             {
-                var fileNames = Directory.GetFiles(_mainDirectory, "*.txt", SearchOption.AllDirectories);
-                return fileNames
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .Aggregate((name, acc) => acc + "\n" + name);
+                var fullFileNames = Directory.GetFiles(_mainDirectory, "*.txt", SearchOption.AllDirectories);
+                var fileNames = fullFileNames
+                    .Select(Path.GetFileNameWithoutExtension);
+                    //.Aggregate((name, acc) => acc + "\n" + name);
+                return new LibraryTransaction<List<string>>
+                {
+                    Result = fileNames,
+                    Success = true
+                };
             }
             catch (Exception)
             {
